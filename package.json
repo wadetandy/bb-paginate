@@ -1,0 +1,32 @@
+{
+  "name": "bower-base",
+  "version": "1.0.0",
+  "description": "This stores all dependencies for running tests using Karma and packaging code using Bower",
+  "main": "karma.conf.js",
+  "directories": {
+    "example": "example",
+    "test": "test"
+  },
+  "dependencies": {
+    "karma": "~0.10.1",
+    "karma-chrome-launcher": "~0.1.0",
+    "karma-coffee-preprocessor": "~0.1.0",
+    "karma-firefox-launcher": "~0.1.0",
+    "karma-html2js-preprocessor": "~0.1.0",
+    "karma-jasmine": "~0.1.0",
+    "karma-phantomjs-launcher": "~0.1.0",
+    "karma-requirejs": "~0.1.0",
+    "karma-script-launcher": "~0.1.0",
+    "bower": "~1.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "karma run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "devgit:bgov/bower-base"
+  },
+  "author": "Wade Tandy & Andrew O'Brien",
+  "license": "BGov"
+}

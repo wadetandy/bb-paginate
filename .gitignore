@@ -1,0 +1,7 @@
+# Ignore bundler config
+/.bundle
+vendor/
+bower_components/
+bin/
+.sass-cache/
+node_modules/
