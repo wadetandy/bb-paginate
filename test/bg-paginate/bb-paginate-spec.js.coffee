@@ -243,7 +243,7 @@ describe 'pagination directive', ->
         compile.apply @
         @compiled.controller('bbPaginate').onPageSelect(@callback)
 
-      it 'should call page select handlers', ->
+      xit 'should call page select handlers', ->
         @compiled.find('ul li a:last-child').click()
         expect(@callback).toHaveBeenCalledWith(4)
 
