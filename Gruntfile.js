@@ -12,14 +12,17 @@ module.exports = function (grunt) {
   require('time-grunt')(grunt);
 
   grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
+    banner: '/*! <%= pkg.name %> v<%= pkg.version %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
     yeoman: {
       // configurable paths
       app: require('./bower.json').appPath || 'app',
+      src: 'src',
       dist: 'dist'
     },
     watch: {
       coffee: {
-        files: ['<%= yeoman.app %>/js/{,*/}*.coffee'],
+        files: ['<%= yeoman.src %>/js/{,*/}*.coffee'],
         tasks: ['coffee:dist']
       },
       coffeeTest: {
@@ -37,7 +40,7 @@ module.exports = function (grunt) {
         files: [
           '<%= yeoman.app %>/{,*/}*.html',
           '.tmp/styles/{,*/}*.css',
-          '{.tmp,<%= yeoman.app %>}/js/{,*/}*.js',
+          '{.tmp,<%= yeoman.src %>}/js/{,*/}*.js',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
@@ -116,7 +119,7 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= yeoman.app %>/js',
+          cwd: '<%= yeoman.src %>/js',
           src: '{,*/}*.coffee',
           dest: '.tmp/scripts',
           ext: '.js'
@@ -281,19 +284,33 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '.tmp/concat/scripts',
+          cwd: '.tmp/scripts',
           src: '*.js',
-          dest: '.tmp/concat/scripts'
+          dest: '.tmp/scripts'
         }]
       }
     },
-    uglify: {
+    concat: {
       dist: {
-        files: {
-          '<%= yeoman.dist %>/scripts/scripts.js': [
-            '<%= yeoman.dist %>/scripts/scripts.js'
-          ]
-        }
+        options: {
+          banner: '<%= banner %>'
+        },
+        src: '.tmp/scripts/*.js',
+        dest: '<%= yeoman.dist %>/<%= pkg.name %>.js',      // 'build/abcde.js'
+      },
+    },
+    uglify: {
+      options: {
+        banner: '<%= banner %>'
+      },
+      dist: {
+        files: [{
+          expand: true,     // Enable dynamic expansion.
+          cwd: '<%= yeoman.dist %>/',      // Src matches are relative to this path.
+          src: ['**/*.js'], // Actual pattern(s) to match.
+          dest: '<%= yeoman.dist %>/',   // Destination path prefix.
+          ext: '.min.js',   // Dest filepaths will have this extension.
+        }]
       }
     }
   });
@@ -325,7 +342,7 @@ module.exports = function (grunt) {
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
-    // 'concat',
+    'concat',
     'ngmin',
     'copy:dist',
     // 'cdnify',
