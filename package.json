@@ -1,5 +1,5 @@
 {
-  "name": "bower-base",
+  "name": "bb-paginate",
   "version": "1.0.0",
   "description": "This stores all dependencies for running tests using Karma and packaging code using Bower",
   "main": "karma.conf.js",
@@ -25,8 +25,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "devgit:bgov/bower-base"
+    "url": "https://github.com/wadetandy/bb-paginate"
   },
-  "author": "Wade Tandy & Andrew O'Brien",
+  "author": "Wade Tandy & Chaz Chandler",
   "license": "BGov"
 }
