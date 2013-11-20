@@ -1,7 +1,9 @@
 ## For Standard Pagination:
 
-    <div bb-paginate="paginationData"
-    on-page-select="myFunctionOnScope(pageNumber)" />
+```html
+<div bb-paginate="paginationData"
+on-page-select="myFunctionOnScope(pageNumber)" />
+```
 
 Where paginationData MUST have attributes:
 * `current_page`
@@ -12,10 +14,12 @@ Where paginationData MUST have attributes:
 
 use `TerminalPaginator`:
 
-    <div bb-paginate="paginationData"
-        on-page-select="myFunctionOnScope(pageNumber)"
-        paginator="TerminalPagination"
-    />
+```html
+<div bb-paginate="paginationData"
+    on-page-select="myFunctionOnScope(pageNumber)"
+    paginator="TerminalPagination"
+/>
+```
 
 ## Customizing:
 
@@ -31,17 +35,21 @@ Say you don't want to show prev/next arrows, and the initial number of
 pages
 ('left' window) should be 10 instead of 5):
 
-    app.factory 'MyCustomPaginator', ['StandardPaginator', (StandardPaginator) ->
-      class MyCustomPaginator extends StandardPaginator
-        constructor: (args...) ->
-          super
-          @windowSize.left = 10
+```coffeescript
+app.factory 'MyCustomPaginator', ['StandardPaginator', (StandardPaginator) ->
+  class MyCustomPaginator extends StandardPaginator
+    constructor: (args...) ->
+      super
+      @windowSize.left = 10
 
-        showNextPage: => false
-        showPrevPage: => false
-    ]
+    showNextPage: => false
+    showPrevPage: => false
+]
+```
 
-    <div bb-paginate="paginationData" paginator="MyCustomPaginator" />
+```html
+<div bb-paginate="paginationData" paginator="MyCustomPaginator" />
+```
 
 See the source of `TerminalPaginator` for another example.
 
@@ -52,10 +60,14 @@ that wish to extend or hook into the basic functionality.
 
 #### onPageSelect()
 
-    app.directive 'paginateBeacon', ($http) ->
-      require: 'bbPaginate'
-      link: ($scope, $element, $attrs, bbPaginateCtrl) ->
-        bbPaginateCtrl.onPageSelect (pageNum) ->
-          $http.get("/page_changed?page=#{pageNum}")
+```coffeescript
+app.directive 'paginateBeacon', ($http) ->
+  require: 'bbPaginate'
+  link: ($scope, $element, $attrs, bbPaginateCtrl) ->
+    bbPaginateCtrl.onPageSelect (pageNum) ->
+      $http.get("/page_changed?page=#{pageNum}")
+```
 
-    <div bb-paginate="paginationData" paginate-beacon />
+```html
+<div bb-paginate="paginationData" paginate-beacon />
+```
