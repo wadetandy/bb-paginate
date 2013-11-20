@@ -239,13 +239,13 @@ describe 'pagination directive', ->
     describe 'onPageSelect()', ->
       beforeEach ->
         @callback = jasmine.createSpy('afterSelect')
-        @scope.pagination.current_page = 3
+        @scope.pagination.current_page = 1
         compile.apply @
         @compiled.controller('bbPaginate').onPageSelect(@callback)
 
-      xit 'should call page select handlers', ->
+      it 'should call page select handlers', ->
         @compiled.find('ul li a:last-child').click()
-        expect(@callback).toHaveBeenCalledWith(4)
+        expect(@callback).toHaveBeenCalledWith(2)
 
 
   describe 'bgPaginateScrollTo', ->
