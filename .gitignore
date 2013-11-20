@@ -5,3 +5,5 @@ bower_components/
 bin/
 .sass-cache/
 node_modules/
+.node-version
+.tmp/
