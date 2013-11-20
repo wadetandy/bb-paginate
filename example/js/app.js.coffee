@@ -1,4 +1,4 @@
-#= require jquery
+#= require jquery/jquery
 #= require jquery.scrollTo/jquery.scrollTo
 #= require angular
 #= require underscore/underscore
