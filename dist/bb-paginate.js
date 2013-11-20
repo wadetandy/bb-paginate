@@ -1,10 +1,21 @@
+/*! bb-paginate v1.0.0 2013-11-20 */
+(function() {
+  var app;
+
+  app = angular.module('bbPaginate', []);
+
+}).call(this);
+
+/*
+//@ sourceMappingURL=bb-paginate.js.map
+*/
 (function() {
   var PaginationController, app,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  app = angular.module('bgPaginate', []);
+  app = angular.module('bbPaginate');
 
   app.factory('Page', function() {
     var Page;
@@ -62,6 +73,8 @@
 
         PrevPage.prototype.cssClass = 'previous-page';
 
+        PrevPage.prototype.text = '<';
+
         PrevPage.prototype.reset = function(currentPage, lastPage) {
           this.number = currentPage - 1;
           return this.disabled = currentPage === 1;
@@ -113,6 +126,8 @@
         }
 
         NextPage.prototype.cssClass = 'next-page';
+
+        NextPage.prototype.text = '>';
 
         NextPage.prototype.reset = function(currentPage, lastPage) {
           this.number = currentPage + 1;
@@ -174,35 +189,42 @@
     function PaginationController(scope, attrs) {
       this.scope = scope;
       this.attrs = attrs;
+      this.onPageSelect = __bind(this.onPageSelect, this);
       this.selectPage = __bind(this.selectPage, this);
       this.scope.selectPage = this.selectPage;
+      this._pageSelectHandlers = [];
     }
 
     PaginationController.prototype.selectPage = function(page) {
+      var _this = this;
       if (page.disabled) {
         return;
       }
-      if (this.attrs.bgPaginateScrollTo) {
-        $.scrollTo(this.attrs.bgPaginateScrollTo, 500);
-      }
       this.scope.pagination.current_page = page.number;
-      return this.scope.onPageSelect({
+      this.scope.onPageSelect({
         pageNumber: page.number
       });
+      return _(this._pageSelectHandlers).each(function(fn) {
+        return fn(page.number);
+      });
+    };
+
+    PaginationController.prototype.onPageSelect = function(fn) {
+      return this._pageSelectHandlers.push(fn);
     };
 
     return PaginationController;
 
   })();
 
-  app.directive('bgPaginate', [
+  app.directive('bbPaginate', [
     '$injector', function($injector) {
       return {
         template: "<ul>\n  <li ng-repeat=\"page in paginator.pages\" ng-class=\"page.listItemClasses()\">\n    <a href=\"\" ng-click=\"selectPage(page)\">{{page.text}}</a>\n  </li>\n</ul>",
         controller: ['$scope', '$attrs', PaginationController],
         scope: {
           onPageSelect: '&',
-          pagination: "=bgPaginate"
+          pagination: "=bbPaginate"
         },
         link: function($scope, $element, $attrs) {
           var klass, paginator;
@@ -218,14 +240,29 @@
     }
   ]);
 
+  app.directive('bbPaginateScrollTo', function() {
+    return {
+      require: 'bbPaginate',
+      link: function($scope, $element, $attrs, bbPaginateCtrl) {
+        return bbPaginateCtrl.onPageSelect(function(page) {
+          return $.scrollTo($attrs.bbPaginateScrollTo, 500);
+        });
+      }
+    };
+  });
+
 }).call(this);
+
+/*
+//@ sourceMappingURL=directive.js.map
+*/
 (function() {
   var app,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  app = angular.module('bgPaginate');
+  app = angular.module('bbPaginate');
 
   app.factory('StandardPaginator', [
     'Paginator', 'Page', 'PrevPage', 'NextPage', 'EllipsisPage', function(Paginator, Page, PrevPage, NextPage, EllipsisPage) {
@@ -369,13 +406,17 @@
   ]);
 
 }).call(this);
+
+/*
+//@ sourceMappingURL=standard-paginator.js.map
+*/
 (function() {
   var app,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  app = angular.module('bgPaginate');
+  app = angular.module('bbPaginate');
 
   app.factory('TerminalPaginator', [
     'StandardPaginator', 'Page', function(StandardPaginator, Page) {
@@ -405,7 +446,7 @@
   ]);
 
 }).call(this);
-(function() {
 
-
-}).call(this);
+/*
+//@ sourceMappingURL=terminal-paginator.js.map
+*/
