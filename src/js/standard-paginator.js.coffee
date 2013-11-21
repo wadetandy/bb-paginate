@@ -18,7 +18,7 @@ app.factory 'StandardPaginator', ['Paginator', 'Page', 'PrevPage', 'NextPage', '
         @numPages() <= @windowSize['left']
 
     buildPages: =>
-      @pages.push new PrevPage if @showNextPage()
+      @pages.push new PrevPage if @showPreviousPage()
       @buildWindow()
       @pages.push new NextPage if @showNextPage()
 
