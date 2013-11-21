@@ -248,7 +248,7 @@ describe 'pagination directive', ->
         expect(@callback).toHaveBeenCalledWith(2)
 
 
-  describe 'bgPaginateScrollTo', ->
+  describe 'bbPaginateScrollTo', ->
     describe "when given bb-paginate-scroll-to", ->
       beforeEach ->
         @template = """
