@@ -1,4 +1,4 @@
-/*! bb-paginate v1.0.0 2013-11-20 */
+/*! bb-paginate v1.0.0 2013-11-22 */
 (function() {
   var app;
 
@@ -310,7 +310,7 @@
         };
 
         StandardPaginator.prototype.buildPages = function() {
-          if (this.showNextPage()) {
+          if (this.showPreviousPage()) {
             this.pages.push(new PrevPage);
           }
           this.buildWindow();
@@ -409,44 +409,4 @@
 
 /*
 //@ sourceMappingURL=standard-paginator.js.map
-*/
-(function() {
-  var app,
-    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-  app = angular.module('bbPaginate');
-
-  app.factory('TerminalPaginator', [
-    'StandardPaginator', 'Page', function(StandardPaginator, Page) {
-      var TerminalPaginator, _ref;
-      return TerminalPaginator = (function(_super) {
-        __extends(TerminalPaginator, _super);
-
-        function TerminalPaginator() {
-          this.buildWindow = __bind(this.buildWindow, this);
-          _ref = TerminalPaginator.__super__.constructor.apply(this, arguments);
-          return _ref;
-        }
-
-        TerminalPaginator.prototype.buildWindow = function() {
-          var current;
-          current = this.pagination.current_page;
-          return this.pages.push(new Page({
-            text: current,
-            number: current
-          }));
-        };
-
-        return TerminalPaginator;
-
-      })(StandardPaginator);
-    }
-  ]);
-
-}).call(this);
-
-/*
-//@ sourceMappingURL=terminal-paginator.js.map
 */
