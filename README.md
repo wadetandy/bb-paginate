@@ -10,17 +10,6 @@ Where paginationData MUST have attributes:
 * `total_entries`
 * `per_page`
 
-## For Terminal Pagination:
-
-use `TerminalPaginator`:
-
-```html
-<div bb-paginate="paginationData"
-    on-page-select="myFunctionOnScope(pageNumber)"
-    paginator="TerminalPagination"
-/>
-```
-
 ## Customizing:
 
 ### Custom Paginator
@@ -50,8 +39,6 @@ app.factory 'MyCustomPaginator', ['StandardPaginator', (StandardPaginator) ->
 ```html
 <div bb-paginate="paginationData" paginator="MyCustomPaginator" />
 ```
-
-See the source of `TerminalPaginator` for another example.
 
 ### Controller API
 

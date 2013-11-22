@@ -46,11 +46,6 @@ class MyController
       current_page: 2
       per_page: 5
 
-    @scope.terminal =
-      total_entries: 20
-      current_page: 2
-      per_page: 5
-
   selectPage: (pageNumber) =>
     @scope.search.meta.pagination.current_page = pageNumber
 
@@ -59,9 +54,6 @@ class MyController
 
   selectThreePage: (pageNumber) =>
     @scope.threepage.current_page = pageNumber
-
-  selectTerminalPage: (pageNumber) =>
-    @scope.terminalPage.current_page = pageNumber
 
 app.controller 'myCtrl', ['$scope', MyController]
 

@@ -199,42 +199,6 @@ describe 'pagination directive', ->
         ellipsis = _.any @compiled.find('ul li a'), (el) -> $(el).text() == '. . .'
         expect(ellipsis).toBeFalsy()
 
-  describe "TerminalPagination", ->
-    beforeEach ->
-      @template = """
-        <div bb-paginate="pagination" paginator="TerminalPaginator">
-        </div>
-      """
-
-    it "should create the correct number of pages", ->
-      compile.apply @
-      expect(@compiled.find('ul li a').length).toEqual(3)
-
-    it "should show the correct, active current page", ->
-      compile.apply @
-      expect(pageAt(2)).toHaveClass('active')
-      expect(linkAt(2)).toHaveText('3')
-
-
-    describe "when there is only one page", ->
-      beforeEach ->
-        @scope.pagination.total_entries = 25
-        @scope.pagination.per_page = 30
-        @scope.pagination.current_page = 1
-
-      it "should create the correct number of pages", ->
-        compile.apply @
-        expect(@compiled.find('ul li a').length).toEqual(3)
-
-      it "should disable both prevous and next page buttons", ->
-        compile.apply @
-        expect(pageAt(1)).toHaveClass('disabled')
-        expect(pageAt(3)).toHaveClass('disabled')
-
-      it "should set the current page to active", ->
-        compile.apply @
-        expect(pageAt(2)).toHaveClass('active')
-
   describe 'Controller API', ->
     describe 'onPageSelect()', ->
       beforeEach ->
