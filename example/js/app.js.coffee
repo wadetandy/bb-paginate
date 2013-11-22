@@ -6,23 +6,6 @@
 
 app = angular.module('app', ['bbPaginate'])
 
-app.directive 'spagPaginate', ->
-  template: """
-    <ul>
-      <li class = 'previous-page' ng-class = '{true: "disabled"}[pagination.current_page == 1]'>&lt;</li>
-      <li ng-repeat="page in pages" ng-class="page.listItemClasses()">
-        <a href="" ng-click="selectPage(page)">{{page.text}}</a>
-      </li>
-    </ul>
-  """
-  scope:
-    onPageSelect: '&'
-    pagination: "=spagPaginate"
-  link: ($scope, $element, $attrs) ->
-    $element.addClass('pagination') unless $element.hasClass('pagination')
-
-
-
 class MyController
   constructor: (@scope) ->
     @scope.selectPage = @selectPage
